@@ -41,7 +41,6 @@
             position: relative;
         }
 
-        /* Subtle texture overlay */
         body:before {
             content: '';
             position: fixed;
@@ -130,6 +129,19 @@
             box-shadow: var(--shadow);
         }
 
+        .hero .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .hero .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--black);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
         .btn-whatsapp {
             background-color: #25D366;
             color: white;
@@ -152,7 +164,7 @@
             box-shadow: var(--shadow);
         }
 
-        /* Header Styles */
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -289,20 +301,36 @@
         .hero {
             padding-top: 180px;
             padding-bottom: 120px;
-            background-color: var(--light-gray);
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
         .hero:before {
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
-            width: 40%;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(184, 157, 93, 0.05) 0%, rgba(184, 157, 93, 0) 100%);
+            background-image: url('p7.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        }
+
+        .hero:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(18, 18, 18, 0.85) 0%, rgba(18, 18, 18, 0.7) 50%, rgba(18, 18, 18, 0.4) 100%);
+            z-index: -1;
         }
 
         .hero-content {
@@ -314,13 +342,13 @@
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
-            color: var(--black);
+            color: var(--white);
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 40px;
-            color: #555;
+            color: rgba(255, 255, 255, 0.9);
             max-width: 600px;
         }
 
@@ -448,32 +476,54 @@
             margin-bottom: 15px;
         }
 
-        /* Portfolio Section */
+        /* Portfolio Section - UPDATED */
         .portfolio {
             background-color: var(--white);
         }
 
-        .portfolio-slider {
-            position: relative;
-            margin-top: 60px;
-            overflow: hidden;
+        .portfolio-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
-        .slider-container {
-            display: flex;
-            gap: 20px;
-            animation: slide 30s linear infinite;
-            padding: 10px 0;
+        .category-btn {
+            padding: 12px 24px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--black);
+        }
+
+        .category-btn:hover {
+            background-color: var(--medium-gray);
+        }
+
+        .category-btn.active {
+            background-color: var(--gold);
+            color: var(--white);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
         }
 
         .portfolio-item {
-            min-width: 350px;
-            height: 400px;
+            position: relative;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            flex-shrink: 0;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            height: 300px;
+            transition: var(--transition);
         }
 
         .portfolio-img {
@@ -483,17 +533,51 @@
             transition: var(--transition);
         }
 
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
         .portfolio-item:hover .portfolio-img {
             transform: scale(1.05);
         }
 
-        @keyframes slide {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(calc(-350px * 4 - 20px * 4));
-            }
+        .portfolio-category {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--white);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+
+        .portfolio-title {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .portfolio-location {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
         }
 
         /* Why Choose Us Section */
@@ -986,6 +1070,14 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 40px 30px;
             }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .hero:after {
+                background: linear-gradient(90deg, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0.75) 100%);
+            }
         }
 
         @media (max-width: 768px) {
@@ -996,6 +1088,7 @@
             .hero {
                 padding-top: 150px;
                 padding-bottom: 100px;
+                min-height: 80vh;
             }
             
             .hero h1 {
@@ -1020,15 +1113,8 @@
                 font-size: 2rem;
             }
             
-            .portfolio-item {
-                min-width: 300px;
-                height: 350px;
-            }
-            
-            @keyframes slide {
-                100% {
-                    transform: translateX(calc(-300px * 4 - 20px * 4));
-                }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
             }
             
             .popup-form {
@@ -1038,9 +1124,19 @@
             .contact-form-container {
                 padding: 30px 25px;
             }
+            
+            .hero:after {
+                background: rgba(18, 18, 18, 0.85);
+            }
         }
 
         @media (max-width: 576px) {
+            .hero {
+                min-height: 70vh;
+                padding-top: 140px;
+                padding-bottom: 80px;
+            }
+            
             .hero h1 {
                 font-size: 2rem;
             }
@@ -1079,6 +1175,15 @@
             .logo-img {
                 width: 50px;
                 height: 50px;
+            }
+            
+            .portfolio-categories {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -1215,29 +1320,100 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Portfolio Section - UPDATED -->
     <section class="portfolio" id="portfolio">
         <div class="container">
             <h2 class="section-title fade-in">Our Portfolio</h2>
-            <div class="portfolio-slider fade-in">
-                <div class="slider-container">
-                    <div class="portfolio-item">
-                        <img src="p1.jpg" alt="Modern Residence" class="portfolio-img">
+            
+            <div class="portfolio-categories fade-in">
+                <button class="category-btn active" data-category="all">All Projects</button>
+                <button class="category-btn" data-category="construction">Construction</button>
+                <button class="category-btn" data-category="interior">Interior</button>
+                <button class="category-btn" data-category="3d">3D Designs</button>
+            </div>
+            
+            <div class="portfolio-grid fade-in">
+                <!-- Construction Projects -->
+                <div class="portfolio-item" data-category="construction">
+                    <img src="p1.jpg" alt="Modern Residential Construction" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Construction</span>
+                        <h3 class="portfolio-title">Modern Villa</h3>
+                        <p class="portfolio-location">Bangalore</p>
                     </div>
-                    <div class="portfolio-item">
-                        <img src="p2.jpg" alt="Luxury Interior" class="portfolio-img">
+                </div>
+                
+                <div class="portfolio-item" data-category="construction">
+                    <img src="p2.jpg" alt="Commercial Building" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Construction</span>
+                        <h3 class="portfolio-title">Commercial Complex</h3>
+                        <p class="portfolio-location">Chennai</p>
                     </div>
-                    <div class="portfolio-item">
-                        <img src="p3.jpg" alt="Commercial Building" class="portfolio-img">
+                </div>
+                
+                <div class="portfolio-item" data-category="construction">
+                    <img src="p3.jpg" alt="Luxury Residence" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Construction</span>
+                        <h3 class="portfolio-title">Luxury Residence</h3>
+                        <p class="portfolio-location">Hyderabad</p>
                     </div>
-                    <div class="portfolio-item">
-                        <img src="p4.jpg" alt="Modern Villa" class="portfolio-img">
+                </div>
+                
+                <!-- Interior Projects -->
+                <div class="portfolio-item" data-category="interior">
+                    <img src="p4.jpg" alt="Modern Living Room" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Interior</span>
+                        <h3 class="portfolio-title">Modern Living Room</h3>
+                        <p class="portfolio-location">Bangalore</p>
                     </div>
-                    <div class="portfolio-item">
-                        <img src="p5.jpg" alt="Office Interior" class="portfolio-img">
+                </div>
+                
+                <div class="portfolio-item" data-category="interior">
+                    <img src="p5.jpg" alt="Luxury Kitchen" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Interior</span>
+                        <h3 class="portfolio-title">Luxury Kitchen</h3>
+                        <p class="portfolio-location">Chennai</p>
                     </div>
-                    <div class="portfolio-item">
-                        <img src="p6.jpg" alt="Office Interior" class="portfolio-img">
+                </div>
+                
+                <div class="portfolio-item" data-category="interior">
+                    <img src="p6.jpg" alt="Office Interior" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Interior</span>
+                        <h3 class="portfolio-title">Corporate Office</h3>
+                        <p class="portfolio-location">Hyderabad</p>
+                    </div>
+                </div>
+                
+                <!-- 3D Design Projects -->
+                <div class="portfolio-item" data-category="3d">
+                    <img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="3D Villa Design" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">3D Design</span>
+                        <h3 class="portfolio-title">Villa Exterior Design</h3>
+                        <p class="portfolio-location">Bangalore</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="3d">
+                    <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="3D Interior Design" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">3D Design</span>
+                        <h3 class="portfolio-title">Interior Visualization</h3>
+                        <p class="portfolio-location">Chennai</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="3d">
+                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="3D Commercial Design" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">3D Design</span>
+                        <h3 class="portfolio-title">Commercial Space Design</h3>
+                        <p class="portfolio-location">Hyderabad</p>
                     </div>
                 </div>
             </div>
@@ -1579,13 +1755,14 @@
         // DOM Elements
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
-        const startProjectBtn = document.getElementById('startProjectBtn');
         const popupOverlay = document.getElementById('popupOverlay');
         const closePopup = document.getElementById('closePopup');
         const enquiryForm = document.getElementById('enquiryForm');
         const quoteForm = document.getElementById('quoteForm');
         const testimonialTrack = document.getElementById('testimonialTrack');
         const sliderDots = document.querySelectorAll('.slider-dot');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
         
         // WhatsApp numbers
         const whatsappNumbers = ['9113551056', '7386075800'];
@@ -1734,6 +1911,29 @@ Project Details: ${formData.message}`;
             dot.addEventListener('click', () => {
                 currentSlide = parseInt(dot.getAttribute('data-slide'));
                 updateSlider();
+            });
+        });
+        
+        // Portfolio Category Filtering
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Get category filter
+                const filter = btn.getAttribute('data-category');
+                
+                // Show/hide portfolio items based on filter
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
             });
         });
         
